@@ -2,12 +2,7 @@
   "name": "common-frontend",
   "version": "1.0.0",
   "description": "",
-  "main": "core.ts",
-  "typings":  "core.d.ts",
   "dependencies": {
-    "@angular/common": "^2.2.1",
-    "@angular/core": "^2.2.1",
-    "@angular/forms": "^2.2.1"
   },
   "devDependencies": {},
   "scripts": {

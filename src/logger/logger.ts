@@ -7,8 +7,8 @@ import { LoggerI } from './interface';
  * See {@link Logger}.
  *
  * level - How much detail you want to see in the logs. Defaults to WARN.
- * global - Whether you want the created logger object to be exposed in the global scope. Defaults to true.
- * globalAs - The window's property name that will hold the logger object created. Defaults to 'logger'.
+ * global - logger object exposed in the global scope. Defaults: true.
+ * globalAs - Window's property name where the logger object is created. Defaults: 'logger'.
  * store - Level config to be saved in the local storage. Defaults to false.
  * storeAs - Local storage key used to save the level. Defaults to 'angular2.logger.level'.
  *
@@ -27,11 +27,11 @@ export class Options {
 const CONSOLE_DEBUG_METHOD = console['debug'] ? 'debug' : 'log';
 
 const DEFAULT_OPTIONS: Options = {
-	level: Level.WARN,
+	level: Level.INFO,
 	global: true,
 	globalAs: 'logger',
 	store: false,
-	storeAs: 'angular2.logger.level'
+	storeAs: 'angular2.logger.level',
 };
 
 @Injectable()
@@ -42,44 +42,52 @@ export class Logger implements LoggerI {
 	private _store: boolean;
 	private _storeAs: string;
 
-	public Level: any = Level;
-
 	constructor( @Optional() options?: Options ) {
 
-		let { level, global, globalAs, store, storeAs } = Object.assign( {}, DEFAULT_OPTIONS, options );
+		let {
+			level, global, globalAs, store, storeAs,
+		} = Object.assign( {}, DEFAULT_OPTIONS, options );
 
 		this._level = level;
 		this._globalAs = globalAs;
 		this._storeAs = storeAs;
 
-		global && this.global();
+		if (global) {
+			this.global();
+		}
 
 		if ( store || this._loadLevel() ) this.store();
 
 	}
 
-	private _loadLevel = (): Level => Number(localStorage.getItem( this._storeAs ));
-
-	private _storeLevel(level: Level) { localStorage[ this._storeAs ] = level; }
-
 	error(message?: any, ...optionalParams: any[]) {
-		this.isErrorEnabled() && console.error.apply( console, arguments );
+		if (this.isErrorEnabled()) {
+			console.error.apply( console, arguments );
+		}
 	}
 
 	warn(message?: any, ...optionalParams: any[]) {
-		this.isWarnEnabled() && console.warn.apply( console, arguments );
+		if (this.isWarnEnabled()) {
+			console.warn.apply( console, arguments );
+		}
 	}
 
 	info(message?: any, ...optionalParams: any[]) {
-		this.isInfoEnabled() && console.info.apply( console, arguments );
+		if (this.isInfoEnabled()) {
+			console.info.apply( console, arguments );
+		}
 	}
 
 	debug(message?: any, ...optionalParams: any[]) {
-		this.isDebugEnabled() && ( <any> console )[ CONSOLE_DEBUG_METHOD ].apply( console, arguments );
+		if (this.isDebugEnabled()) {
+			( <any> console )[ CONSOLE_DEBUG_METHOD ].apply( console, arguments );
+		}
 	}
 
 	log(message?: any, ...optionalParams: any[]) {
-		this.isLogEnabled() && console.log.apply( console, arguments );
+		if (this.isLogEnabled()) {
+			console.log.apply( console, arguments );
+		}
 	}
 
 	global = () => ( <any> window )[this._globalAs] = this;
@@ -88,11 +96,13 @@ export class Logger implements LoggerI {
 
 		this._store = true;
 		let storedLevel = this._loadLevel();
-		if ( storedLevel ) { this._level = storedLevel; }
-		else { this._storeLevel( this.level ); }
+		if ( storedLevel ) {
+			this._level = storedLevel;
+		} else {
+			this._storeLevel( this.level );
+		}
 
 		return this;
-
 	}
 
 	unstore(): Logger {
@@ -110,8 +120,13 @@ export class Logger implements LoggerI {
 	get level(): Level { return this._level; }
 
 	set level(level: Level) {
-		this._store && this._storeLevel(level);
+		if (this._store) {
+			this._storeLevel(level);
+		}
 		this._level = level;
 	}
 
+	private _loadLevel = (): Level => Number(localStorage.getItem( this._storeAs ));
+
+	private _storeLevel(level: Level) { localStorage[ this._storeAs ] = level; }
 }
