@@ -1,0 +1,14 @@
+language: generic
+  
+script:
+  - if [ "$TRAVIS_BRANCH" == "develop" ]; then
+      curl -sS https://gist.githubusercontent.com/Mokto/82d6009300decd715c6c42bdf3e73b3a/raw/commit-changelog.sh | bash;
+    fi
+
+#   - if [ -n "$TRAVIS_TAG"  ]; then
+#       REPO="admin-prod";
+#       curl -sS https://gist.githubusercontent.com/Mokto/d0707180ae34c1ed67c26fefc2f576c1/raw/commit-changelog-preprod.sh | bash -s $REPO;
+#     fi
+
+notifications:
+  slack: bhvr-bs:Momkig1fctiUVZHEOosGerv
