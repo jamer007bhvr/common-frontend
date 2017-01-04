@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
 import { TranslateModule } from 'ng2-translate';
+import { Storage } from '@ionic/storage';
 
 import { Logger } from './logger/logger';
 import { Api } from './api/api';
@@ -22,6 +23,7 @@ import { LoginComponent } from './user/login.component';
 		Logger,
 		Api,
 		UserService,
+		Storage,
 	],
 })
 export class CommonModule {}
