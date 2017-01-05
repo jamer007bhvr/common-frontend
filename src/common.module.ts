@@ -7,6 +7,7 @@ import { Logger } from './logger/logger';
 import { Api } from './api/api';
 import { UserService } from './user/user.service';
 import { LoginComponent } from './user/login.component';
+import { LogoutComponent } from './user/logout.component';
 
 @NgModule({
 	imports: [
@@ -15,9 +16,11 @@ import { LoginComponent } from './user/login.component';
 	],
 	declarations: [
 		LoginComponent,
+		LogoutComponent
 	],
 	exports: [
 		LoginComponent,
+		LogoutComponent
 	],
 	providers: [
 		Logger,

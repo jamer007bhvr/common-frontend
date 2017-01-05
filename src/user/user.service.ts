@@ -32,8 +32,7 @@ export class UserService {
 		seq
 			.map(res => res.json())
 			.subscribe(res => {
-				logger.info('Successful', res);
-				this._loggedIn(res);
+				this.loggedIn(res);
 
 			}, err => {
 				logger.warn(err);
@@ -43,6 +42,7 @@ export class UserService {
 	}
 
 	signup(accountInfo: any) {
+		/*
 		let seq = this.api.post('signup', accountInfo).share();
 
 		seq
@@ -57,6 +57,7 @@ export class UserService {
 			});
 
 		return seq;
+		*/
 	}
 
 	get user(): any {
@@ -75,11 +76,12 @@ export class UserService {
 	}
 
 	logout() {
-		this._user = null;
-		this._token = null;
+		this.user = null;
+		this.token = null;
 	}
 
-	_loggedIn(resp) {
-		this._user = resp.user;
+	loggedIn(data) {
+		this.user = data.user;
+		this.token = data.token;
 	}
 }
