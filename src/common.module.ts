@@ -6,8 +6,8 @@ import { Storage } from '@ionic/storage';
 import { Logger } from './logger/logger';
 import { Api } from './api/api';
 import { UserService } from './user/user.service';
-import { LoginComponent } from './user/login.component';
-import { LogoutComponent } from './user/logout.component';
+import { LoginComponent } from './user/login/login.component';
+import { LogoutComponent } from './user/logout/logout.component';
 
 @NgModule({
 	imports: [

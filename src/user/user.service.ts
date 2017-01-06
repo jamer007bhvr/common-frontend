@@ -8,15 +8,16 @@ import { Api } from '../api/api';
 
 @Injectable()
 export class UserService {
-	public _user: any;
-	public _token: String;
+	private _user: any;
+	private _token: String;
 
 	constructor(public api: Api, public storage: Storage) {
+		
 		storage.get('user').then(user => {
-			this.user = user;
+			this._user = user;
 		});
 		storage.get('jsonwebtoken').then(token => {
-			this.token = token;
+			this._token = token;
 		});
 	}
 
@@ -26,7 +27,7 @@ export class UserService {
 	 */
 	login(credentials: any) {
 		const seq = this.api.post('/login', credentials).share();
-
+		
 		seq
 			.map(res => res.json())
 			.subscribe(res => {

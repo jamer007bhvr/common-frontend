@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ToastController } from 'ionic-angular';
 import { TranslateService } from 'ng2-translate';
 
-import { UserService } from './user.service';
+import { UserService } from '../user.service';
 
 @Component({
 	selector: 'login-component',
