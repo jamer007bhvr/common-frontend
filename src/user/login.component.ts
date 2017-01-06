@@ -14,8 +14,11 @@ export class LoginComponent {
 		password: 'aaaa',
 	};
 
-	constructor(public userService: UserService, public toastCtrl: ToastController, public translateService: TranslateService) {
-		
+	constructor(
+		public userService: UserService,
+		public toastCtrl: ToastController,
+		public translateService: TranslateService) {
+	
 	}
 
 	// Attempt to login in through our User service

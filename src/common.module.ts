@@ -16,11 +16,11 @@ import { LogoutComponent } from './user/logout.component';
 	],
 	declarations: [
 		LoginComponent,
-		LogoutComponent
+		LogoutComponent,
 	],
 	exports: [
 		LoginComponent,
-		LogoutComponent
+		LogoutComponent,
 	],
 	providers: [
 		Logger,

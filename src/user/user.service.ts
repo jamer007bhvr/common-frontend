@@ -6,8 +6,6 @@ import 'rxjs/add/operator/toPromise';
 
 import { Api } from '../api/api';
 
-
-
 @Injectable()
 export class UserService {
 	public _user: any;
@@ -81,6 +79,7 @@ export class UserService {
 	}
 
 	loggedIn(data) {
+		logger.info('loggedIn', data);
 		this.user = data.user;
 		this.token = data.token;
 	}

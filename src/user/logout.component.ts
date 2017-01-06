@@ -8,10 +8,10 @@ import { UserService } from './user.service';
 })
 export class LogoutComponent {
 	constructor(public userService: UserService) {
-		
+
 	}
 
 	logout() {
-        this.userService.logout();
+		this.userService.logout();
 	}
 }
