@@ -1,6 +1,7 @@
 import { Injectable, Optional } from '@angular/core';
 import { Level } from './level';
 import { LoggerI } from './interface';
+import { Platform } from 'ionic-angular';
 
 /**
  * Logger options.
@@ -42,7 +43,7 @@ export class Logger implements LoggerI {
 	private _store: boolean;
 	private _storeAs: string;
 
-	constructor( @Optional() options?: Options ) {
+	constructor( public platform: Platform, @Optional() options?: Options ) {
 
 		let {
 			level, global, globalAs, store, storeAs,
@@ -60,33 +61,45 @@ export class Logger implements LoggerI {
 
 	}
 
+	stringify(args: IArguments) {
+
+		if (!this.platform.is('cordova')) {
+			return args;
+		}
+
+		return Array.prototype.slice.call(args).map(arg => {
+			if (typeof arg != 'object') return arg;
+			return JSON.stringify(arg);
+		});
+	}
+
 	error(message?: any, ...optionalParams: any[]) {
 		if (this.isErrorEnabled()) {
-			console.error.apply( console, arguments );
+			console.error.apply( console, this.stringify(arguments) );
 		}
 	}
 
 	warn(message?: any, ...optionalParams: any[]) {
 		if (this.isWarnEnabled()) {
-			console.warn.apply( console, arguments );
+			console.warn.apply( console, this.stringify(arguments) );
 		}
 	}
 
 	info(message?: any, ...optionalParams: any[]) {
 		if (this.isInfoEnabled()) {
-			console.info.apply( console, arguments );
+			console.info.apply( console, this.stringify(arguments) );
 		}
 	}
 
 	debug(message?: any, ...optionalParams: any[]) {
 		if (this.isDebugEnabled()) {
-			( <any> console )[ CONSOLE_DEBUG_METHOD ].apply( console, arguments );
+			( <any> console )[ CONSOLE_DEBUG_METHOD ].apply( console, this.stringify(arguments) );
 		}
 	}
 
 	log(message?: any, ...optionalParams: any[]) {
 		if (this.isLogEnabled()) {
-			console.log.apply( console, arguments );
+			console.log.apply( console, this.stringify(arguments) );
 		}
 	}
 

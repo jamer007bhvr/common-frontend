@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, URLSearchParams } from '@angular/http';
+import { Platform } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 
 /**
@@ -7,9 +8,15 @@ import 'rxjs/add/operator/map';
  */
 @Injectable()
 export class Api {
-	url: string = '/api';
+	// url: string = '/api'; // WEB DEV
+	url: string; // MOBILE DEV
 
-	constructor(public http: Http) {
+	constructor(public http: Http, platform: Platform) {
+		if (platform.is('cordova')) {
+			this.url = window.location.protocol + '//' + window.location.hostname;
+		} else {
+			this.url = '/api';
+		}
 	}
 
 	get(endpoint: string, params?: any, options?: RequestOptions) {
