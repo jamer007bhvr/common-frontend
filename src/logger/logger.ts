@@ -68,7 +68,7 @@ export class Logger implements LoggerI {
 		}
 
 		return Array.prototype.slice.call(args).map(arg => {
-			if (typeof arg != 'object') return arg;
+			if (typeof arg !== 'object') return arg;
 			return JSON.stringify(arg);
 		});
 	}
