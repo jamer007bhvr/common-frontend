@@ -8,6 +8,7 @@ import { Api } from './api/api';
 import { UserService } from './user/user.service';
 import { LoginComponent } from './user/login/login.component';
 import { LogoutComponent } from './user/logout/logout.component';
+import { SendResetPasswordComponent } from './user/reset-password/send-reset-password.component';
 
 @NgModule({
 	imports: [
@@ -17,10 +18,12 @@ import { LogoutComponent } from './user/logout/logout.component';
 	declarations: [
 		LoginComponent,
 		LogoutComponent,
+		SendResetPasswordComponent,
 	],
 	exports: [
 		LoginComponent,
 		LogoutComponent,
+		SendResetPasswordComponent,
 	],
 	providers: [
 		Logger,
