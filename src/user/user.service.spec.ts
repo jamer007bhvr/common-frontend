@@ -1,3 +1,4 @@
+import { NgZone } from '@angular/core';
 import { TestBed, fakeAsync, inject, tick } from '@angular/core/testing';
 import {
 	BaseRequestOptions,
@@ -8,6 +9,7 @@ import {
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { Storage } from '@ionic/storage';
+import { Platform } from 'ionic-angular';
 
 import { UserService } from './user.service';
 import { Api } from '../api/api';
@@ -40,7 +42,7 @@ describe('User Service', () => {
 				{
 					provide: Api,
 					useFactory: (mockBackend, options) => {
-						return new Api(new Http(mockBackend, options));
+						return new Api(new Http(mockBackend, options), new Platform());
 					},
 					deps: [MockBackend, BaseRequestOptions],
 				},
@@ -49,6 +51,10 @@ describe('User Service', () => {
 				{
 					provide: Storage,
 					useValue: storageStub,
+				},
+				{
+					provide: NgZone,
+					useFactory: () => new NgZone({ enableLongStackTrace: true }),
 				},
 			],
 		});
@@ -109,12 +115,12 @@ describe('User Service', () => {
 
 			const mockResponse = {
 				user: otherUser,
-				token: otherToken
+				token: otherToken,
 			};
 
 			mockBackend.connections.subscribe((connection) => {
 				connection.mockRespond(new Response(new ResponseOptions({
-					body: JSON.stringify(mockResponse)
+					body: JSON.stringify(mockResponse),
 				})));
 			});
 

@@ -1,9 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Storage } from '@ionic/storage';
-
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-
 import { Api } from '../api/api';
 import { User } from './user.model';
 

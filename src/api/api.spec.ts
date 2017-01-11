@@ -7,6 +7,7 @@ import {
 	ResponseOptions,
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
+import { Platform } from 'ionic-angular';
 
 import { Api } from './api';
 
@@ -27,6 +28,7 @@ describe('Api Service', () => {
 				},
 				MockBackend,
 				BaseRequestOptions,
+				Platform,
 			],
 		});
 

@@ -14,8 +14,8 @@ export class SendResetPasswordComponent {
 	};
 
 	constructor(
-        public api: Api,
-        public toastCtrl: ToastController,
+		public api: Api,
+		public toastCtrl: ToastController,
 		public translateService: TranslateService) {
 	
 	}
@@ -23,19 +23,19 @@ export class SendResetPasswordComponent {
 	// Attempt to login in through our User service
 	sendResetPassword() {
 
-        this.api.post('/send-reset-password', { email: this.credentials.email })
-            .subscribe(resp => {
-                logger.log(resp);
+		this.api.post('/send-reset-password', { email: this.credentials.email })
+			.subscribe(resp => {
+				logger.log(resp);
 
-            }, err => {
-                this.translateService.get('SEND_RESET_PASSWORD_ERROR').subscribe(message => {
-                    this.toastCtrl.create({
-                        message: message,
-                        duration: 3000,
-                        position: 'top',
-                    }).present();
-                });
-            });
+			}, err => {
+				this.translateService.get('SEND_RESET_PASSWORD_ERROR').subscribe(message => {
+					this.toastCtrl.create({
+						message: message,
+						duration: 3000,
+						position: 'top',
+					}).present();
+				});
+			});
 
 	}
 }
