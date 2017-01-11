@@ -5,12 +5,13 @@ import { UserService } from '../user.service';
 @Component({
 	selector: 'logout-component',
 	templateUrl: 'logout.html',
+  	// changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogoutComponent {
-	constructor(public userService: UserService) {
+	user: any;
 
-	}
-
+	constructor(public userService: UserService) {}
+	
 	logout() {
 		this.userService.logout();
 	}

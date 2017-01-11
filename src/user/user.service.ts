@@ -1,20 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 import { Api } from '../api/api';
+import { User } from './user.model';
 
 @Injectable()
 export class UserService {
-	private _user: any;
+	private _user: User;
 	private _token: String;
 
-	constructor(public api: Api, public storage: Storage) {
-		
+	constructor(public api: Api, public storage: Storage, public zone: NgZone) {
+
 		storage.get('user').then(user => {
-			this._user = user;
+			this.zone.run(() => { this._user = user; });
 		});
 		storage.get('jsonwebtoken').then(token => {
 			this._token = token;
@@ -63,7 +64,7 @@ export class UserService {
 		return this._user;
 	}
 	set user(user) {
-		this._user = user;
+		this.zone.run(() => { this._user = user; });
 		this.storage.set('user', user);
 	}
 	get token(): String {
@@ -80,7 +81,6 @@ export class UserService {
 	}
 
 	loggedIn(data) {
-		logger.info('loggedIn', data);
 		this.user = data.user;
 		this.token = data.token;
 	}
