@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions, URLSearchParams } from '@angular/http';
-import { Platform } from 'ionic-angular';
-import 'rxjs/add/operator/map';
+import { Http, RequestOptions, URLSearchParams, Headers } from '@angular/http';
+// import { Platform } from 'ionic-angular';
+import { UserService } from '../user/user.service';
+// import 'rxjs/add/operator/map';
 
-/**
- * Api is a generic REST Api handler. Set your API url first.
- */
 @Injectable()
 export class Api {
-	// url: string = '/api'; // WEB DEV
-	url: string; // MOBILE DEV
+	url: string = window.location.protocol + '//' + window.location.hostname;
 
-	constructor(public http: Http, platform: Platform) {
-		if (platform.is('cordova')) {
-			this.url = window.location.protocol + '//' + window.location.hostname;
-		} else {
-			this.url = '/api';
-		}
+	constructor(public http: Http, public userService: UserService) { }
+
+	getAuthorizationHeaders(): Headers {
+		const headers = new Headers();
+		console.log(this.userService.token);
+		headers.append('Authorization', 'Bearer ' + this.userService.token);
+
+		return headers;
 	}
 
 	get(endpoint: string, params?: any, options?: RequestOptions) {
@@ -37,22 +36,40 @@ export class Api {
 			options.search = !options.search && p || options.search;
 		}
 
+		options.headers = this.getAuthorizationHeaders();
+
 		return this.http.get(this.url + endpoint, options);
 	}
 
 	post(endpoint: string, body: any, options?: RequestOptions) {
+		if (!options) {
+			options = new RequestOptions();
+		}
+		options.headers = this.getAuthorizationHeaders();
 		return this.http.post(this.url + endpoint, body, options);
 	}
 
 	put(endpoint: string, body: any, options?: RequestOptions) {
+		if (!options) {
+			options = new RequestOptions();
+		}
+		options.headers = this.getAuthorizationHeaders();
 		return this.http.put(this.url + endpoint, body, options);
 	}
 
 	delete(endpoint: string, body: any, options?: RequestOptions) {
+		if (!options) {
+			options = new RequestOptions();
+		}
+		options.headers = this.getAuthorizationHeaders();
 		return this.http.post(this.url + endpoint, body, options);
 	}
 
 	patch(endpoint: string, body: any, options?: RequestOptions) {
+		if (!options) {
+			options = new RequestOptions();
+		}
+		options.headers = this.getAuthorizationHeaders();
 		return this.http.put(this.url + '/' + endpoint, body, options);
 	}
 }

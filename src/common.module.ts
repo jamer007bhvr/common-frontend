@@ -9,6 +9,7 @@ import { UserService } from './user/user.service';
 import { LoginComponent } from './user/login/login.component';
 import { LogoutComponent } from './user/logout/logout.component';
 import { SendResetPasswordComponent } from './user/reset-password/send-reset-password.component';
+import { ChangePasswordComponent } from './user/change-password/change-password.component';
 
 @NgModule({
 	imports: [
@@ -19,11 +20,13 @@ import { SendResetPasswordComponent } from './user/reset-password/send-reset-pas
 		LoginComponent,
 		LogoutComponent,
 		SendResetPasswordComponent,
+		ChangePasswordComponent,
 	],
 	exports: [
 		LoginComponent,
 		LogoutComponent,
 		SendResetPasswordComponent,
+		ChangePasswordComponent,
 	],
 	providers: [
 		Logger,
