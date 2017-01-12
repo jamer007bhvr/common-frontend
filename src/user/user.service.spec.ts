@@ -42,7 +42,13 @@ describe('User Service', () => {
 				{
 					provide: Api,
 					useFactory: (mockBackend, options) => {
-						return new Api(new Http(mockBackend, options), new Platform());
+						return new Api(
+							new Http(mockBackend, options),
+							new UserService(
+								new Storage(),
+								new NgZone({ enableLongStackTrace: true }),
+							),
+						);
 					},
 					deps: [MockBackend, BaseRequestOptions],
 				},

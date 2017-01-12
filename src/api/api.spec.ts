@@ -10,6 +10,7 @@ import { MockBackend } from '@angular/http/testing';
 import { Platform } from 'ionic-angular';
 
 import { Api } from './api';
+import { UserService } from '../user/user.service';
 
 describe('Api Service', () => {
 
@@ -28,7 +29,10 @@ describe('Api Service', () => {
 				},
 				MockBackend,
 				BaseRequestOptions,
-				Platform,
+				{
+					provide: UserService,
+					useValue: { token: 'a' },
+				},
 			],
 		});
 
@@ -59,7 +63,7 @@ describe('Api Service', () => {
 	}));
 
 	it('should contain a delete method', inject([Api], (service) => {
-		expect(service.patch).toBeDefined();
+		expect(service.delete).toBeDefined();
 	}));
 
 });
