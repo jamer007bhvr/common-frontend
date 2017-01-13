@@ -25,6 +25,13 @@ export class SendResetPasswordComponent {
 
 		this.api.post('/send-reset-password', { email: this.credentials.email })
 			.subscribe(resp => {
+				this.translateService.get('SEND_RESET_PASSWORD_SUCCESS').subscribe(message => {
+					this.toastCtrl.create({
+						message: message,
+						duration: 3000,
+						position: 'top',
+					}).present();
+				});
 				logger.log(resp);
 
 			}, err => {

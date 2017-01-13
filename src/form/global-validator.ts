@@ -7,9 +7,11 @@ export class GlobalValidator {
 		return (group: FormGroup): void => {
 			const password = group.controls[passwordKey];
 			const passwordConfirm = group.controls[passwordConfirmationKey];
-
+			
 			if (password.value !== passwordConfirm.value) {
 				return passwordConfirm.setErrors({ areEqual: true });
+			} else {
+				return passwordConfirm.setErrors(null);
 			}
 		};
 

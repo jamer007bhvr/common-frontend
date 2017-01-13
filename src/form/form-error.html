@@ -1,4 +1,4 @@
-<div [hidden]="field.valid || field.untouched">
+<div [hidden]="(field.valid || field.untouched) && !formSubmitted">
     <div [hidden]="!field.hasError('minlength')">
         Too short.
     </div>

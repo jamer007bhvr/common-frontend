@@ -7,4 +7,5 @@ import { FormControl } from '@angular/forms';
 })
 export class FormErrorComponent {
 	@Input() field: FormControl;
+	@Input() formSubmitted?: Boolean;
 }
