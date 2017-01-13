@@ -13,7 +13,7 @@ export class Api {
 	getAuthorizationHeaders(): Headers {
 		const headers = new Headers();
 		
-		if(this.userService.token) {
+		if (this.userService.token) {
 			headers.append('Authorization', 'Bearer ' + this.userService.token);
 		}
 

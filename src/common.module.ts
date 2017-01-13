@@ -5,6 +5,8 @@ import { Storage } from '@ionic/storage';
 
 import { Logger } from './logger/logger';
 import { Api } from './api/api';
+import { FormErrorComponent } from './form/form-error.component';
+
 import { UserService } from './user/user.service';
 import { LoginComponent } from './user/login/login.component';
 import { LogoutComponent } from './user/logout/logout.component';
@@ -21,12 +23,14 @@ import { ChangePasswordComponent } from './user/change-password/change-password.
 		LogoutComponent,
 		SendResetPasswordComponent,
 		ChangePasswordComponent,
+		FormErrorComponent,
 	],
 	exports: [
 		LoginComponent,
 		LogoutComponent,
 		SendResetPasswordComponent,
 		ChangePasswordComponent,
+		FormErrorComponent,
 	],
 	providers: [
 		Logger,

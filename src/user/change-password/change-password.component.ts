@@ -4,6 +4,7 @@ import { TranslateService } from 'ng2-translate';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Api } from '../../api/api';
+import { GlobalValidator } from '../../form/global-validator';
 
 @Component({
 	selector: 'change-password',
@@ -18,20 +19,13 @@ export class ChangePasswordComponent {
 		oldPassword: this.oldPassword,
 		newPassword1: this.newPassword1,
 		newPassword2: this.newPassword2,
-	}, { validator: this.areEqual('newPassword1', 'newPassword2') });
+	}, { validator: GlobalValidator.areEqual('newPassword1', 'newPassword2') });
 
-	areEqual(passwordKey: string, passwordConfirmationKey: string) {
-		return (group: FormGroup) => {
-			const password = group.controls[passwordKey];
-			const passwordConfirm = group.controls[passwordConfirmationKey];
-
-			if (password.value !== passwordConfirm.value) {
-				return passwordConfirm.setErrors({ areEqual: true });
-			}
-		};
-	}
-
-	constructor(private formBuilder: FormBuilder, public api: Api, public toastCtrl: ToastController, public translateService: TranslateService) { }
+	constructor(
+		private formBuilder: FormBuilder,
+		public api: Api,
+		public toastCtrl: ToastController,
+		public translateService: TranslateService) {}
 
 	changePassword() {
 
@@ -40,7 +34,7 @@ export class ChangePasswordComponent {
 		// console.log(this.form.value);
 		const { oldPassword, newPassword1 } = this.form.value;
 		
-		this.api.post('/change-password', { oldpassword: oldPassword, newPassword: newPassword1 })
+		this.api.post('/change-password', { oldpassword: oldPassword, newpassword: newPassword1 })
 			.subscribe(resp => {
 				this.translateService.get('CHANGE_PASSWORD_SUCCESS').subscribe(message => {
 					this.toastCtrl.create({

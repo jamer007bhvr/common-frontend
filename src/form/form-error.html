@@ -1,0 +1,14 @@
+<div [hidden]="field.valid || field.untouched">
+    <div [hidden]="!field.hasError('minlength')">
+        Too short.
+    </div>
+    <div [hidden]="!field.hasError('required')">
+        Required.
+    </div>
+    <div [hidden]="!field.hasError('areEqual')">
+        Not the same password.
+    </div>
+    <div [hidden]="!field.hasError('email')">
+        Not an email.
+    </div>
+</div>
