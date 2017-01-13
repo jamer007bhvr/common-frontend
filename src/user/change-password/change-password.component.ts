@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ToastController } from 'ionic-angular';
+import { TranslateService } from 'ng2-translate';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Api } from '../../api/api';
@@ -8,9 +10,9 @@ import { Api } from '../../api/api';
 	templateUrl: 'change-password.html',
 })
 export class ChangePasswordComponent {
-	oldPassword: FormControl = new FormControl('aaaa', [Validators.required]);
-	newPassword1: FormControl = new FormControl('bbbb', [Validators.required, Validators.minLength(4)]);
-	newPassword2: FormControl = new FormControl('bbbb', [Validators.required]);
+	oldPassword: FormControl = new FormControl('', [Validators.required]);
+	newPassword1: FormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
+	newPassword2: FormControl = new FormControl('', [Validators.required]);
 
 	form: FormGroup = this.formBuilder.group({
 		oldPassword: this.oldPassword,
@@ -29,7 +31,7 @@ export class ChangePasswordComponent {
 		};
 	}
 
-	constructor(private formBuilder: FormBuilder, public api: Api) { }
+	constructor(private formBuilder: FormBuilder, public api: Api, public toastCtrl: ToastController, public translateService: TranslateService) { }
 
 	changePassword() {
 
@@ -40,9 +42,22 @@ export class ChangePasswordComponent {
 		
 		this.api.post('/change-password', { oldpassword: oldPassword, newPassword: newPassword1 })
 			.subscribe(resp => {
-				logger.log(resp);
+				this.translateService.get('CHANGE_PASSWORD_SUCCESS').subscribe(message => {
+					this.toastCtrl.create({
+						message: message,
+						duration: 3000,
+						position: 'top',
+					}).present();
+				});
 
 			}, e => {
+				this.translateService.get('CHANGE_PASSWORD_ERROR').subscribe(message => {
+					this.toastCtrl.create({
+						message: message,
+						duration: 3000,
+						position: 'top',
+					}).present();
+				});
 				logger.error(e);
 			});
 	}

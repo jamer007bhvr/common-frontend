@@ -12,8 +12,10 @@ export class Api {
 
 	getAuthorizationHeaders(): Headers {
 		const headers = new Headers();
-		console.log(this.userService.token);
-		headers.append('Authorization', 'Bearer ' + this.userService.token);
+		
+		if(this.userService.token) {
+			headers.append('Authorization', 'Bearer ' + this.userService.token);
+		}
 
 		return headers;
 	}
