@@ -12,6 +12,7 @@ import { LoginComponent } from './user/login/login.component';
 import { LogoutComponent } from './user/logout/logout.component';
 import { SendResetPasswordComponent } from './user/reset-password/send-reset-password.component';
 import { ChangePasswordComponent } from './user/change-password/change-password.component';
+import { EditProfileComponent } from './user/edit-profile/edit-profile.component';
 
 @NgModule({
 	imports: [
@@ -24,6 +25,7 @@ import { ChangePasswordComponent } from './user/change-password/change-password.
 		SendResetPasswordComponent,
 		ChangePasswordComponent,
 		FormErrorComponent,
+		EditProfileComponent,
 	],
 	exports: [
 		LoginComponent,
@@ -31,6 +33,7 @@ import { ChangePasswordComponent } from './user/change-password/change-password.
 		SendResetPasswordComponent,
 		ChangePasswordComponent,
 		FormErrorComponent,
+		EditProfileComponent,
 	],
 	providers: [
 		Logger,
