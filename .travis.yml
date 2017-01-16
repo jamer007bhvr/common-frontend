@@ -11,4 +11,4 @@ script:
 #     fi
 
 notifications:
-  slack: bhvr-bs:Momkig1fctiUVZHEOosGerv
+  slack: bhvr-bs:Momkig1fctiUVZHEOosGervO
