@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 
 import { UserService } from '../user.service';
 import { Api } from '../../api/api';
-import { GlobalValidator } from '../../form/global-validator';
 
 @Component({
 	selector: 'edit-profile',
@@ -43,8 +42,8 @@ export class EditProfileComponent {
 						position: 'top',
 					}).present();
 				});
-				// redirect ?
-				// this.navCtrl.push(MainPage);
+
+				this.userService.user = res.user;
 
 			}, err => {
 				this.translateService.get('EDIT_PROFILE_ERROR').subscribe(message => {
