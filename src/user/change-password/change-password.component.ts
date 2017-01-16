@@ -15,6 +15,8 @@ export class ChangePasswordComponent {
 	newPassword1: FormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
 	newPassword2: FormControl = new FormControl('', [Validators.required]);
 
+	submitted: Boolean = false;
+
 	form: FormGroup = this.formBuilder.group({
 		oldPassword: this.oldPassword,
 		newPassword1: this.newPassword1,
@@ -29,6 +31,8 @@ export class ChangePasswordComponent {
 
 	changePassword() {
 
+		this.submitted = true;
+		
 		if (!this.form.valid) return;
 		
 		// console.log(this.form.value);
